@@ -1,0 +1,4 @@
+click
+pandas
+pyodbc
+python-dotenv
