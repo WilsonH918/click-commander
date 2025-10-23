@@ -27,7 +27,7 @@ def cli():
 @click.option('--table', required=True, help='SQL table to extract from')
 def extract(table):
     """Extract data from SQL Server"""
-    click.echo(f"🔍 Extracting data from SQL table: {table}")
+    click.echo(f"Extracting data from SQL table: {table}")
     conn = pyodbc.connect(conn_str)
     query = f"SELECT * FROM {table}"
     df = pd.read_sql(query, conn)
@@ -58,7 +58,7 @@ def transform(input, drop_null, drop_cols, filter_dept):
 
     if filter_dept:
         df = df[df['department'] == filter_dept]
-        click.echo(f"🔎 Filtered by department: {filter_dept}")
+        click.echo(f"Filtered by department: {filter_dept}")
 
     df.to_csv('transformed_sql.csv', index=False)
     click.echo("Saved to transformed_sql.csv")
@@ -100,7 +100,7 @@ def validate(input):
         for issue in issues:
             click.echo(issue)
     else:
-        click.echo("✅ Data passed validation")
+        click.echo("Data passed validation")
 
 if __name__ == '__main__':
     cli()
