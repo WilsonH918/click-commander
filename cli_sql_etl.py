@@ -34,8 +34,8 @@ def extract(table):
     conn.close()
 
     df.to_csv('extracted_sql.csv', index=False)
-    click.echo(f"✅ Extracted {len(df)} rows")
-    click.echo("📁 Saved to extracted_sql.csv")
+    click.echo(f"Extracted {len(df)} rows")
+    click.echo("Saved to extracted_sql.csv")
 
 # ------------------ Transform ------------------
 @cli.command()
@@ -45,40 +45,40 @@ def extract(table):
 @click.option('--filter-dept', help='Filter by department name')
 def transform(input, drop_null, drop_cols, filter_dept):
     """Transform SQL data"""
-    click.echo(f"🔧 Transforming {input}")
+    click.echo(f"Transforming {input}")
     df = pd.read_csv(input)
 
     if drop_cols:
         df = df.drop(columns=list(drop_cols), errors='ignore')
-        click.echo(f"🧹 Dropped columns: {', '.join(drop_cols)}")
+        click.echo(f"Dropped columns: {', '.join(drop_cols)}")
 
     if drop_null:
         df = df.dropna()
-        click.echo("🧹 Dropped nulls")
+        click.echo("Dropped nulls")
 
     if filter_dept:
         df = df[df['department'] == filter_dept]
         click.echo(f"🔎 Filtered by department: {filter_dept}")
 
     df.to_csv('transformed_sql.csv', index=False)
-    click.echo("📁 Saved to transformed_sql.csv")
+    click.echo("Saved to transformed_sql.csv")
 
 # ------------------ Load ------------------
 @cli.command()
 @click.option('--target', default='loaded_sql.csv', help='Target file to save')
 def load(target):
     """Load transformed data to target"""
-    click.echo(f"📦 Loading data to {target}")
+    click.echo(f"Loading data to {target}")
     df = pd.read_csv('transformed_sql.csv')
     df.to_csv(target, index=False)
-    click.echo("✅ Load complete")
+    click.echo("Load complete")
 
 # ------------------ Report ------------------
 @cli.command()
 @click.option('--input', default='transformed_sql.csv', help='Input file for report')
 def report(input):
     """Generate summary report"""
-    click.echo(f"📊 Generating report for {input}")
+    click.echo(f"Generating report for {input}")
     df = pd.read_csv(input)
     click.echo(df.describe(include='all'))
 
@@ -92,9 +92,9 @@ def validate(input):
 
     issues = []
     if df.isnull().values.any():
-        issues.append("❗ Null values found")
+        issues.append("Null values found")
     if df.duplicated().any():
-        issues.append("❗ Duplicate rows found")
+        issues.append("Duplicate rows found")
 
     if issues:
         for issue in issues:
