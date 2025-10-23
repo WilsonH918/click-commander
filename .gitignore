@@ -1,2 +1,5 @@
 .env
 venv
+extracted_sql.csv
+final_output.csv
+transformed_sql.csv

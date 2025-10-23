@@ -40,6 +40,12 @@ jobs:
     - name: Run CLI extract command
       run: |
         python cli_sql_etl.py extract --table [dbo].[Accounts]
+        python cli_sql_etl.py transform --drop-null
+        python cli_sql_etl.py load --target final_output.csv
+        python cli_sql_etl.py report
+        python cli_sql_etl.py validate
+
+
 
     - name: Upload output CSV
       uses: actions/upload-artifact@v4
