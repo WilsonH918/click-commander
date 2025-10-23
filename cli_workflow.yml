@@ -21,6 +21,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Inject SQL environment variables
+      run: |
+        echo "SQL_SERVER=${{ secrets.SQL_SERVER }}" >> $GITHUB_ENV
+        echo "SQL_DATABASE=${{ secrets.SQL_DATABASE }}" >> $GITHUB_ENV
+        echo "SQL_USER=${{ secrets.SQL_USER }}" >> $GITHUB_ENV
+        echo "SQL_PASSWORD=${{ secrets.SQL_PASSWORD }}" >> $GITHUB_ENV
+
     - name: Run CLI extract command
       run: |
         python cli_sql_etl.py extract --table [dbo].[Accounts]
